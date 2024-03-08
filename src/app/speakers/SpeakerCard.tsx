@@ -7,7 +7,7 @@ interface SpeakerCardProps {
 
 export const SpeakerCard = ({speaker}: SpeakerCardProps) => (<section>
         <h2>{speaker.full_name}</h2>
-        <Image src={speaker.avatar_url} alt={speaker.full_name} width={100} height={100}/>
+        <Image src={speaker.avatar_url} alt={speaker.full_name} width={200} height={200}/>
         <p>{speaker.company}</p>
         <p>{speaker.bio}</p>
     </section>
