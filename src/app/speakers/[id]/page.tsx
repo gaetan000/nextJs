@@ -3,6 +3,10 @@ import { Speaker } from "@/types/Speaker";
 import { ScheduleSessionApi } from "@/types/api-types";
 import Image from "next/image";
 import { z } from "zod";
+import { langCodeToFlag } from "./langCodeToFlag";
+import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+
 // export const dynamicParams = false;
 // export const dynamic = "force-static";
 
@@ -30,19 +34,54 @@ const ScheduleTalkApi = z.object({
   type: z.literal("Talk"),
   id: z.string(),
   title: z.string(),
-  description: z.string().optional(),
+  description: z.string(),
   speakers: z.array(ScheduleSpeakerApi),
   language: z.string(),
   tags: z.array(ScheduleTagApi),
 });
 
-const ScheduleSessionApiZod = z.union([ScheduleBreakApi, ScheduleTalkApi]);
-const ScheduleSessionApiArrayZod = z.array(
-    ScheduleSessionApiZod
-);
+const ScheduleSessionApi = z.union([ScheduleBreakApi, ScheduleTalkApi]);
 
-type ScheduleSessionApiInfered = z.infer<typeof ScheduleSessionApiZod>;
-type ScheduleSessionApiArrayInfered = z.infer<typeof ScheduleSessionApiArrayZod>;
+const ScheduleRoomApi = z.object({
+  key: z.string(),
+  name: z.string(),
+  description: z.string(),
+});
+
+const SchedulePeriodApi = z.object({
+  start_date: z.union([z.string(), z.instanceof(Date)]),
+  end_date: z.union([z.string(), z.instanceof(Date)]),
+});
+
+const ScheduleItemApi = z.object({
+  period: SchedulePeriodApi,
+  room: ScheduleRoomApi,
+  session: ScheduleSessionApi,
+});
+
+const ScheduleApi = z.object({
+  editionKey: z.string(),
+  mainLanguage: z.string(),
+  rooms: z.array(ScheduleRoomApi),
+  items: z.array(ScheduleItemApi),
+});
+
+// Zod Types for TypeScript interfaces
+type ScheduleApiType = z.infer<typeof ScheduleApi>;
+type ScheduleItemType = z.infer<typeof ScheduleItemApi>;
+type SchedulePeriodType = z.infer<typeof SchedulePeriodApi>;
+type ScheduleRoomType = z.infer<typeof ScheduleRoomApi>;
+type ScheduleSessionType = z.infer<typeof ScheduleSessionApi>;
+type ScheduleBreakType = z.infer<typeof ScheduleBreakApi>;
+type ScheduleTalkType = z.infer<typeof ScheduleTalkApi>;
+type ScheduleSpeakerType = z.infer<typeof ScheduleSpeakerApi>;
+type ScheduleTagType = z.infer<typeof ScheduleTagApi>;
+
+type SessionDisplayed = {
+  session: ScheduleSessionType;
+  period: SchedulePeriodType;
+  room: ScheduleRoomType;
+};
 
 export async function generateStaticParams() {
   const speakers = await fetch(
@@ -70,39 +109,66 @@ export default async function SpeakerPage({
     throw new Error("Speaker not found");
   }
 
-  const schedule = await fetch(
+  const schedule: ScheduleApiType = await fetch(
     "https://konfetti.monkeypatch.io/web/conferences/demo-konfetti-2023/schedule"
   ).then((res) => res.json());
-  const sessionsItems = schedule.items.map((x: {session : ScheduleSessionApiInfered}) => x.session);
-  console.log("sessionsItems", sessionsItems);
-  const sessionsParsed: ScheduleSessionApiArrayInfered =
-    ScheduleSessionApiArrayZod.parse(sessionsItems);
-  const sessions = sessionsParsed.filter((session) => {
-    if (
-      session.type === "Talk" &&
-      session.speakers.some((sp) => sp.id === id)
-    ) {
-      return true;
+  const scheduleParsed = ScheduleApi.parse(schedule);
+  const sessionsItems: SessionDisplayed[] = scheduleParsed.items.map(
+    (x: ScheduleItemType) => {
+      return {
+        session: x.session,
+        period: x.period,
+        room: x.room,
+      };
     }
-  });
+  );
+
+  const sessions = sessionsItems.filter(
+    ({ session, period }: SessionDisplayed) => {
+      if (
+        session.type === "Talk" &&
+        session.speakers.some((sp) => sp.id === id)
+      ) {
+        return true;
+      }
+    }
+  );
 
   const avatarFallaback = speaker.full_name
     .split(" ")
     .map((name) => name[0])
     .join("");
 
-  const renderSpeakerSessions = (sessions: ScheduleSessionApiArrayInfered) => {
-    return sessions.map((session) => {
+  const renderSpeakerSessions = (sessionData: SessionDisplayed[]) => {
+    return sessionData.map(({ session, period, room }) => {
       if (session.type === "Talk") {
         return (
-          <div key={session.id} className="flex items-center space-x-5">
-            <div className="flex flex-col">
-              <div>{session.title}</div>
-              <div className="text-gray-600">
-                {session.speakers.map((sp) => sp.full_name).join(", ")}
+          <Link href={`/schedule/${session.id}`} key={session.id}>
+            <div key={session.id} className="pt-6 flex items-center space-x-5">
+              <div className="flex flex-col">
+                <div className="text-md flex space-x-1">
+                  <div className="text-gray-600">
+                    {langCodeToFlag(session.language)}
+                  </div>
+                  <div>{session.title}</div>
+                </div>
+                <div className="text-sm text-gray-600">
+                  {period.start_date.toLocaleString()}
+                </div>
+                <div className="text-sm text-gray-600">{room.name}</div>
+                <div className="flex pt-4  space-x-4  ">
+                  {session.tags?.map((tag) => (
+                    <div
+                      key={tag.id}
+                      className="cursor-pointer text-gray-600 rounded-xl bg-red-50 w-1/5  border text-sm border-red-600 text-center "
+                    >
+                      {tag.name}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          </Link>
         );
       }
     });
@@ -124,9 +190,14 @@ export default async function SpeakerPage({
           <div className="text-gray-600">{speaker.company}</div>
         </div>
       </div>
-      <div className="w-48 h-48 rounded-full"></div>
-      <p>{speaker.bio}</p>
-      <div>{renderSpeakerSessions(sessions)}</div>
+      <Separator className="my-4" />
+
+      <div>{speaker.bio}</div>
+
+      <div className="pt-20">
+        <div className="text-xl">Sessions</div>
+        <div>{renderSpeakerSessions(sessions)}</div>
+      </div>
     </main>
   );
 }
