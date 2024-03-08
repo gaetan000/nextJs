@@ -29,7 +29,7 @@ export const SpeakerSession = ({sessions}: { sessions: SessionDisplayed[]}) => {
                                 {session.tags?.map((tag) => (
                                     <div
                                         key={tag.id}
-                                        className="cursor-pointer text-gray-600 rounded-xl bg-red-50 w-1/5  border text-sm border-red-600 text-center "
+                                        className="cursor-pointer text-gray-600 rounded-xl bg-red-50 w-36 border text-sm border-red-600 text-center "
                                     >
                                         {tag.name}
                                     </div>
