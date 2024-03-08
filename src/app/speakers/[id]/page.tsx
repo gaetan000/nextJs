@@ -2,7 +2,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Speaker } from "@/types/Speaker";
 import { z } from "zod";
 import { Separator } from "@/components/ui/separator";
-import {SpeakerSession} from "@/app/speakers/[id]/SpeakerSession";
+import Link from "next/link";
+import { BadgeTag } from "@/components/BadgeTag";
 
 // export const dynamicParams = false;
 // export const dynamic = "force-static";
@@ -136,18 +137,64 @@ export default async function SpeakerPage({
     .map((name) => name[0])
     .join("");
 
+  const renderSpeakerSessions = (sessionData: SessionDisplayed[]) => {
+    return sessionData.map(({ session, period, room }) => {
+      if (session.type === "Talk") {
+        return (
+          <Link href={`/schedule/${session.id}`} key={session.id}>
+            <div key={session.id} className="pt-6 flex items-center space-x-5">
+              <div className="flex flex-col">
+                <div className="text-md flex space-x-1">
+                  <div className="text-gray-600">
+                    {langCodeToFlag(session.language)}
+                  </div>
+                  <div>{session.title}</div>
+                </div>
+                <div className="text-sm text-gray-600">
+                  {period.start_date.toLocaleString()}
+                </div>
+                <div className="text-sm text-gray-600">{room.name}</div>
+                <div className="flex pt-4  space-x-4  ">
+                  {session.tags?.map((tag) => (
+                    <BadgeTag key={tag.id} name={tag.name} id={""}  />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Link>
+        );
+      }
+    });
+  };
 
   return (
     <main className="flex min-h-screen flex-col items-start justify-start p-24">
       <div className="text-2xl">Speakers</div>
       <div className="flex items-center justify-start space-x-5 pt-8">
-        <Avatar>
+        {/* <Avatar
+        >
           <AvatarImage
             src={speaker.avatar_url}
             alt={`Image of ${speaker.full_name}`}
+            // className="size-48"
           />
           <AvatarFallback>{avatarFallaback}</AvatarFallback>
-        </Avatar>
+        </Avatar> */}
+        <div
+          style={{
+            borderRadius: "50%",
+            overflow: "hidden",
+            width: "100px",
+            height: "100px",
+          }}
+        >
+          <Image
+            src={speaker.avatar_url}
+            alt={`Image of ${speaker.full_name}`}
+            width={100}
+            height={100}
+          />
+        </div>
         <div className="flex flex-col">
           <div>{speaker.full_name}</div>
           <div className="text-gray-600">{speaker.company}</div>
