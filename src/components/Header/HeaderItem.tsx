@@ -23,7 +23,9 @@ export default function HeaderItem({
   return (
     <li
       className={`${classes} ${
-        isCurrentRoute ? "text-slate-800 border-purple-800" : "text-slate-500"
+        isCurrentRoute
+          ? "text-slate-800 border-purple-800"
+          : "text-slate-500 border-transparent"
       }`}
     >
       <Link href={route}>{children}</Link>
