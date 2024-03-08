@@ -1,6 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Speaker, Speaker } from "@/types/Speaker";
-import Image from "next/image";
+import { Speaker } from "@/types/Speaker";
 
 // export const dynamicParams = false;
 // export const dynamic = "force-static";
