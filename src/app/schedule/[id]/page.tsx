@@ -23,8 +23,8 @@ export default async function S({ params }: { params: { id: string } }) {
 		.map((name) => name[0])
 		.join('');
 	return (
-		<main className="flex min-h-screen flex-col justify-between p-24">
-			<h2 className="text-lg">{res.session.title}</h2>
+		<main className="w-3/4 flex flex-col justify-between p-24">
+			<h2 className="text-xl my-10">{res.session.title}</h2>
 			<div className="flex">
 				<Date
 					dateString={String(res.period.start_date)}
@@ -32,8 +32,15 @@ export default async function S({ params }: { params: { id: string } }) {
 				/>{' '}
 				- <Date dateString={String(res.period.end_date)} formatting="h'h'mm" />
 			</div>
-			<p>{res.room.name}</p>
-			<p>{res.session.description}</p>
+			<p className="mb-5">{res.room.name}</p>
+			<p className="mb-5">{res.session.description}</p>
+			<a
+				className="mb-10"
+				href="https://speakerdeck.com/gdglviv/yonatan-levin-knock-knock-whos-there-doze"
+				target="_blank"
+			>
+				Voir la présentation
+			</a>
 			<h4>Speakers</h4>
 			<div className="flex items-center justify-start space-x-5 pt-8">
 				{(res.session as ScheduleTalkApi).speakers.map((sp) => (
