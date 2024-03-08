@@ -11,7 +11,7 @@ export const SpeakerCard = ({speaker}: SpeakerCardProps) => (<Link className="fl
         <div className="p-2">
             <p className="font-bold">{speaker.company}</p>
             <h2 className="text-3xl">{speaker.full_name}</h2>
-            <p>{speaker.bio}</p>
+            <p className="h-48 overflow-clip">{speaker.bio}</p>
         </div>
     </Link>
 )
