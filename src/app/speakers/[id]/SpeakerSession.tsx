@@ -35,6 +35,17 @@ export const SpeakerSession = ({sessions}: { sessions: SessionDisplayed[]}) => {
                                     </div>
                                 ))}
                             </div>
+                            {
+                                planned
+                                    ? <>Planned !  <button onClick={(e) => {
+                                        e.preventDefault()
+                                        store.unplanSession(session.id);
+                                    }}>Unplan</button></>
+                                    :   <button onClick={(e) => {
+                                        e.preventDefault()
+                                        store.planSession(session.id);
+                                    }}>Plan</button>
+                            }
                         </div>
                     </div>
                 </Link>
