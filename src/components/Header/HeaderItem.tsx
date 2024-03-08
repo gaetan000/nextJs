@@ -4,6 +4,7 @@ import { PropsWithChildren } from "react";
 import { ClassNameProps } from ".";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 type HeaderItemProps = PropsWithChildren &
   ClassNameProps & {
@@ -15,19 +16,19 @@ export default function HeaderItem({
   route,
   className = "",
 }: HeaderItemProps) {
-  const classes = `text-sm h-16 font-semibold border-b-2 items-center flex uppercase list-none ${className}`;
   const currentRoute = usePathname();
 
   const isCurrentRoute = route === currentRoute;
 
+  const classes = cn(
+    `text-sm h-16 font-semibold border-b-2 items-center flex uppercase list-none text-slate-500 border-transparent ${className}`,
+    {
+      "text-slate-800 border-purple-800": isCurrentRoute,
+    }
+  );
+
   return (
-    <li
-      className={`${classes} ${
-        isCurrentRoute
-          ? "text-slate-800 border-purple-800"
-          : "text-slate-500 border-transparent"
-      }`}
-    >
+    <li className={classes}>
       <Link href={route}>{children}</Link>
     </li>
   );
