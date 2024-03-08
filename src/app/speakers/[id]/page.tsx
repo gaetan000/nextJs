@@ -1,11 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Speaker } from "@/types/Speaker";
-import { ScheduleSessionApi } from "@/types/api-types";
-import Image from "next/image";
 import { z } from "zod";
-import { langCodeToFlag } from "./langCodeToFlag";
 import { Separator } from "@/components/ui/separator";
-import Link from "next/link";
+import {SpeakerSession} from "@/app/speakers/[id]/SpeakerSession";
 
 // export const dynamicParams = false;
 // export const dynamic = "force-static";
@@ -77,7 +74,7 @@ type ScheduleTalkType = z.infer<typeof ScheduleTalkApi>;
 type ScheduleSpeakerType = z.infer<typeof ScheduleSpeakerApi>;
 type ScheduleTagType = z.infer<typeof ScheduleTagApi>;
 
-type SessionDisplayed = {
+export type SessionDisplayed = {
   session: ScheduleSessionType;
   period: SchedulePeriodType;
   room: ScheduleRoomType;
@@ -139,40 +136,6 @@ export default async function SpeakerPage({
     .map((name) => name[0])
     .join("");
 
-  const renderSpeakerSessions = (sessionData: SessionDisplayed[]) => {
-    return sessionData.map(({ session, period, room }) => {
-      if (session.type === "Talk") {
-        return (
-          <Link href={`/schedule/${session.id}`} key={session.id}>
-            <div key={session.id} className="pt-6 flex items-center space-x-5">
-              <div className="flex flex-col">
-                <div className="text-md flex space-x-1">
-                  <div className="text-gray-600">
-                    {langCodeToFlag(session.language)}
-                  </div>
-                  <div>{session.title}</div>
-                </div>
-                <div className="text-sm text-gray-600">
-                  {period.start_date.toLocaleString()}
-                </div>
-                <div className="text-sm text-gray-600">{room.name}</div>
-                <div className="flex pt-4  space-x-4  ">
-                  {session.tags?.map((tag) => (
-                    <div
-                      key={tag.id}
-                      className="cursor-pointer text-gray-600 rounded-xl bg-red-50 w-1/5  border text-sm border-red-600 text-center "
-                    >
-                      {tag.name}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </Link>
-        );
-      }
-    });
-  };
 
   return (
     <main className="flex min-h-screen flex-col items-start justify-start p-24">
@@ -196,7 +159,7 @@ export default async function SpeakerPage({
 
       <div className="pt-20">
         <div className="text-xl">Sessions</div>
-        <div>{renderSpeakerSessions(sessions)}</div>
+        <div><SpeakerSession sessions={sessions} /></div>
       </div>
     </main>
   );
