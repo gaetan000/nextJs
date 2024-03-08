@@ -22,19 +22,11 @@ export const SpeakerSession = ({sessions}: { sessions: SessionDisplayed[] }) => 
                 <Link href={`/schedule/${session.id}`} key={session.id}>
                     <div key={session.id} className="pt-6 flex items-center space-x-5">
                         <div className="flex flex-col">
-                            <div className="text-md flex space-x-1">
-                                <div className="text-gray-600">
-                                    {langCodeToFlag(session.language)}
-                                </div>
-                                <div>{session.title}</div>
-                            </div>
-                            <div className="flex w-full content-between">
-                                <div className="text-sm text-gray-600">
-                                    {period.start_date.toLocaleString()}
-                                </div>
+
+                            <div className="flex items-center">
                                 <Button
                                     borderRadius="1.75rem"
-                                    className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
+                                    className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800 mr-16"
                                 >
                                     {
                                         planned
@@ -49,11 +41,23 @@ export const SpeakerSession = ({sessions}: { sessions: SessionDisplayed[] }) => 
                                             }}>{heartIcon}</button>
                                     }
                                 </Button>
+                                <div className="flex flex-col ml-8">
+                                    <div className="text-md flex space-x-1">
+                                        <div className="text-gray-600">
+                                            {langCodeToFlag(session.language)}
+                                        </div>
+                                        <div>{session.title}</div>
+                                    </div>
+                                    <div className="text-sm text-gray-600">
+                                        {period.start_date.toLocaleString()}
+                                    </div>
+                                    <div className="text-sm text-gray-600">{room.name}</div>
+                                </div>
+
 
                             </div>
-                            <div className="text-sm text-gray-600">{room.name}</div>
                             <div className="flex pt-4  space-x-4  ">
-                            {session.tags?.map((tag) => (
+                                {session.tags?.map((tag) => (
                                     <div
                                         key={tag.id}
                                         className="cursor-pointer text-gray-600 rounded-xl bg-red-50 w-1/5  border text-sm border-red-600 text-center "
