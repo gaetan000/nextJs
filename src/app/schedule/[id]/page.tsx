@@ -16,7 +16,7 @@ async function getSchedulItem(id: string) {
 
 export default async function S({ params }: { params: { id: string } }) {
 	const { id } = params;
-	const res: ScheduleItemApi = await getSchedulItem('XyJihoZ2Hl97jSl9qRME'); // TODO replace with id
+	const res: ScheduleItemApi = await getSchedulItem(id); //XyJihoZ2Hl97jSl9qRME
 
 	const avatarFallaback = (res.session as ScheduleTalkApi).speakers[0].full_name
 		.split(' ')
