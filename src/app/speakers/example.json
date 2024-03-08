@@ -1,0 +1,51 @@
+[
+  {
+    "id": "tZLXJ6Ntmbh2mekKZMQcMxEetpq2",
+    "full_name": "Alexandre Delattre",
+    "avatar_url": "https://lh3.googleusercontent.com/a/AGNmyxbq7sktPn5RKulZ0IIhKImjuc40mT9H88bfRsbB=s256",
+    "company": "MonkeyPatch",
+    "bio": "Sofware engineer at MonkeyPath\n\nI have 8 year experience in backend,  web and mobile technologies.\n\nI love JVM languages, especially Kotlin, and love to apply functional programming and architectural concepts in my projects."
+  },
+  {
+    "id": "nxwltxdMhVTeI1qKxJoYR7EBZLq1",
+    "full_name": "Arnaud Bos",
+    "avatar_url": "https://lh4.googleusercontent.com/-dRj6f6WALcA/AAAAAAAAAAI/AAAAAAAAAEA/gutqd8tkqI4/photo.jpg",
+    "company": "MonkeyPatch",
+    "bio": "Functional programming, parens and distributed systems enthusiast. Lifelong hammock aficionado. Toulouse JUG organizer."
+  },
+  {
+    "id": "V4HFUGIr4_6bV8AlfC8Uh",
+    "full_name": "Charlie",
+    "avatar_url": "https://m.media-amazon.com/images/I/510tPaMe5dL._AC_UF1000,1000_QL80_.jpg",
+    "company": "Charlie company",
+    "bio": "\"Charlie the Monkey, often described as a spirited and mischievous primate, has a captivating life story that has endeared him to many. Born in the lush, tropical rainforests of South America, Charlie's early days were spent frolicking amidst the dense canopy, swinging from tree to tree with boundless energy.\""
+  },
+  {
+    "id": "hVAvuY1wYQbg8I5ZsFNAbPU7r132",
+    "full_name": "Emmanuel Vinas",
+    "avatar_url": "https://lh3.googleusercontent.com/-x26Hn9Grgvk/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rdXLJcrDAPbTV0GFALEeQLmm9meSw.CMID/s256/photo.jpg",
+    "company": "MonkeyPatch",
+    "bio": "J'ai consacré mes 12 années d'expériences en développement à faire principalement du backend java et des applications Mobile Android. Mais tout ce qui touche aux technologies en général m'intèresse. En ce moment je touche à ce qui tourne autour du mobile Android, web back/front, aux \"nouveau\" paradigmes de programmation reactive, et les nouveaux langages (Kotlin, Rust, Golang, Swift...).\n\nJe m'implique également dans les communautés de devs. Je suis organisateur au Devfest Toulouse, GDG Toulouse et MonkeyTechday. \n\n"
+  },
+  {
+    "id": "0WuMKbkoItdgFlRtHyEMdPt6OAw2",
+    "full_name": "Igor Laborie",
+    "avatar_url": "https://lh6.googleusercontent.com/-v9LOvjZx_x4/AAAAAAAAAAI/AAAAAAAAABg/8FR8JJD5z2s/photo.jpg",
+    "company": "MonkeyPatch",
+    "bio": "Développeur passionné depuis 17 ans. Expert dans les technos Java et Web. Je participe souvent et anime aussi des rdv techniques au travers de ma société ou dans des meetings comme le Toulouse JUG, GDG Toulouse, Software Craftsmanship Toulouse."
+  },
+  {
+    "id": "DOf7nxshJKYoWia2QQX8cTkJtRL2",
+    "full_name": "Igor Laborie",
+    "avatar_url": "https://lh5.googleusercontent.com/-kEdVtrC6Poc/AAAAAAAAAAI/AAAAAAAAAo0/9i_S-sPAc84/photo.jpg",
+    "company": "MonkeyPatch",
+    "bio": "Développeur passionné depuis le début du siècle - Java et Web.\n❤️ Kotlin, Rust, Scala, et CSS. \nEt puis je sais dessiner une 🦄 en CSS."
+  },
+  {
+    "id": "DQHwfFU9oBZMzOpKLxOWdymoK053",
+    "full_name": "Logan MAUZAIZE",
+    "avatar_url": "https://lh3.googleusercontent.com/-M6QGwL0IXnY/AAAAAAAAAAI/AAAAAAAAH0Y/j2P_eT5QF7Q/photo.jpg",
+    "company": "MonkeyPatch",
+    "bio": "Amateur de Java avant le diplôme, j'ai distribué mes conseils lors de mes missions (expert technique, dev leader) et sur les forums. Notamment sur Developpez.com, sur lequel j'ai fait partie de l'équipe Java à la fois en tant que modérateur mais aussi rédacteur.\n\nTombé dans le DevOps plusieurs années, je dispense conseil et développement pour les outillages projets. Sinon j'écume les solutions de CI/CD de client en client."
+  }
+]
