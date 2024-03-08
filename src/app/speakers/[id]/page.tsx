@@ -4,7 +4,9 @@ import { z } from "zod";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import { BadgeTag } from "@/components/BadgeTag";
-
+import Image from "next/image";
+import { langCodeToFlag } from "./langCodeToFlag";
+import { SpeakerSession } from "./SpeakerSession";
 // export const dynamicParams = false;
 // export const dynamic = "force-static";
 
